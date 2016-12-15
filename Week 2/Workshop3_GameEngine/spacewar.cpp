@@ -12,7 +12,7 @@ Spacewar::~Spacewar()
 // Initalises the game
 void Spacewar::initialize(HWND hwnd)
 {
-	Game::initalize(hwnd); // throws GameError
+	Game::initialize(hwnd); // throws GameError
 	return;
 }
 

@@ -17,7 +17,7 @@
 
 // window
 const char CLASS_NAME[] = "Spacewar";
-const char GAME_TITLE[] = "Game Engine PArt 1";
+const char GAME_TITLE[] = "Game Engine Part 1";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT  GAME_WIDTH = 900;              // width of game in pixels
 const UINT  GAME_HEIGHT = 650;              // height of game in pixels

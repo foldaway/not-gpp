@@ -24,7 +24,7 @@ protected:
 	float fps;					// frames per seconds
 	DWORD sleepTime;			// number of milliseconds to sleep between frames
 	bool paused;				// true if game is paused
-	bool initalized;
+	bool initialized;
 
 public:
 	// Constructor

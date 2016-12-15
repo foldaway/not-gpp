@@ -7,7 +7,7 @@ Game::Game()
 	// additional init is handled in later call to input->initilaise()
 	paused = false;					//game is not paused
 	graphics = NULL;
-	initalized = false;
+	initialized = false;
 }
 
 // Destructor
@@ -21,7 +21,7 @@ Game::~Game()
 // Window message handler
 LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if (initalized)
+	if (initialized)
 	{
 		switch (msg)
 		{
@@ -94,7 +94,7 @@ void Game::initialize(HWND hw)
 	if (QueryPerformanceFrequency(&timerFreq) == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
 	QueryPerformanceCounter(&timeStart); // get starting time
-	initalized = true;
+	initialized = true;
 }
 
 // Handle lost graphics device
@@ -201,5 +201,5 @@ void Game::deleteAll()
 	releaseAll();							// call onLostDevice() for every graphics item
 	SAFE_DELETE(graphics);
 	SAFE_DELETE(input);
-	initalized = false;
+	initialized = false;
 }

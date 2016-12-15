@@ -2,7 +2,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 //#include <windows.h>
-#include <windowsx.h>
+#include <windowsx.h>			// added due to potential `architeture error`
 #include <stdlib.h>             // for detecting memory leaks
 #include <crtdbg.h>             // for detecting memory leaks
 #include "graphics.h"
@@ -13,9 +13,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int);
 bool CreateMainWindow(HWND &, HINSTANCE, int);
 LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
 
-// Game Pointer
 Spacewar *game = NULL;
 HWND hwnd = NULL;
+
 
 //Create the main window
 bool CreateMainWindow(HWND &hwnd, HINSTANCE hInstance, int nCmdShow)
@@ -68,34 +68,37 @@ bool CreateMainWindow(HWND &hwnd, HINSTANCE hInstance, int nCmdShow)
 
 LRESULT WINAPI WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	return (game->messageHandler(hwnd, msg, wParam, lParam));
+	return (game->messageHandler(hWnd, msg, wParam, lParam));
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-						LPSTR lpCmdLine, int nCmdShow)
+//=============================================================================
+// Starting point for a Windows application
+//=============================================================================
+
+int WINAPI WinMain(HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine,
+	int nCmdShow)
 {
 	// Check for memory leak if debug build
-    #if defined(DEBUG) | defined(_DEBUG)
-        _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-    #endif
+#if defined(DEBUG) | defined(_DEBUG)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
-	
+
 	MSG	 msg;
-
-	// Create the game, set up the message handler
+	// Create the game, sets up message handler
 	game = new Spacewar;
 
 	// Create the window
 	if (!CreateMainWindow(hwnd, hInstance, nCmdShow))
-		return 1;
-	try
-	{
-		game->initialize(hwnd);			// throw GamerError
+		return false;
+	try {
+		game->initialize(hwnd);		//throw GameError
 
 		// main message loop
 		int done = 0;
-		while (!done)
-		{
+		while (!done) {
 			// PeekMessage is a non-blocking method for checking for Windows messages.
 			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
 				//look for quit message
@@ -107,21 +110,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				DispatchMessage(&msg);
 			}
 			else
-				game->run(hwnd);		// run game loop
+				game->run(hwnd);    // run the game loop
 		}
 		SAFE_DELETE(game);  // free memory before exit
 		return msg.wParam;
 	}
-	catch (const GameError &err)
-	{
+	catch (const GameError &err) {
 		game->deleteAll();
 		DestroyWindow(hwnd);
 		MessageBox(NULL, err.getMessage(), "Error", MB_OK);
 	}
-	catch (...)
-	{
+	catch (...) {
 		game->deleteAll();
-		DestroyWindow(hwnd)
+		DestroyWindow(hwnd);
 		MessageBox(NULL, "Unknown error occured in game.", "Error", MB_OK);
 	}
 	SAFE_DELETE(game);  // free memory before exit
