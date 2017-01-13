@@ -37,6 +37,10 @@ const float FRAME_RATE  = 200.0f;               // the target frame rate (frames
 const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
+const float ROTATION_RATE = 180.0f;				// degreees per second
+const float SCALE_RATE = 0.2f;					// % change per second
+const float SHIP_SPEED = 100.0f;				// pixels per second
+const float SHIP_SCALE = 1.5f;					// starting ship scale
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -44,10 +48,20 @@ const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calcul
 const UCHAR ESC_KEY      = VK_ESCAPE;   // escape key
 const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
+const UCHAR SHIP_LEFT_KEY = VK_LEFT;	// Left arrow key
+const UCHAR SHIP_RIGHT_KEY = VK_RIGHT;	// Right arrow key
 
 // graphic images
 const char NEBULA_IMAGE[] = "pictures\\orion.jpg";
 const char PLANET_IMAGE[] = "pictures\\planet.png";
 const char SHIP_IMAGE[] = "pictures\\ship.png";
+const char SHIP2_IMAGE[] = "pictures\\ship2.png";
+
+const int SHIP_WIDTH = 32;
+const int SHIP_HEIGHT = 32;
+const int SHIP_COLS = 2;
+const int SHIP_START_FRAME = 0;
+const int SHIP_END_FRAME = 3;
+const float SHIP_ANIMATION_DELAY = 0.2f;
 
 #endif
