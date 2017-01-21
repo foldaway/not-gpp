@@ -15,8 +15,12 @@ private:
     // variables
 	TextureManager nebulaTexture;   // nebula texture
 	TextureManager planetTexture;   // planet texture
+	TextureManager shipTexture;		// ship texture
+	TextureManager ship2Texture;
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula image
+	Image	ship;					// ship image
+	Image	ship2;
 
 public:
     // Constructor
